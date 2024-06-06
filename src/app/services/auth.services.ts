@@ -20,6 +20,10 @@ export class AuthService {
       );
   }
 
+  register(username: string, password: string): Observable<any> {
+    return this.http.post<any>('api/register', { username, password });
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {

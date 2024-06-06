@@ -4,6 +4,9 @@ import {
   loginFailure,
   loginSuccess,
   logout,
+  register,
+  registerFailure,
+  registerSuccess,
 } from '../actions/auth.actions';
 
 export interface AuthState {
@@ -41,5 +44,20 @@ export const authReducer = createReducer(
     ...state,
     user: null,
     error: null,
+  })),
+  on(register, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(registerSuccess, (state) => ({
+    ...state,
+    loading: false,
+    error: null,
+  })),
+  on(registerFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
   }))
 );
