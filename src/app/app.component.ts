@@ -8,7 +8,7 @@ import { AppState } from './store/reducers';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './styles/_global.scss',
 })
 export class AppComponent implements OnInit {
   title = 'tasks-system';
