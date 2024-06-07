@@ -1,11 +1,11 @@
 @import "../../styles/breakpoints";
 
 .login-container {
-  padding: 0 10px 10px 10px;
+  padding: 0 20px 10px 20px;
 }
 
 .login-title {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .form-input {
@@ -25,7 +25,7 @@
   }
 
   &:focus {
-    border: 1px solid #32c3f2;
+    border: 2px solid #32c3f2;
   }
 
   &:focus::placeholder {
@@ -53,6 +53,12 @@
   margin-bottom: 10px;
 }
 
+.register-link {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
 .login-button {
   border-radius: 5px;
   border: none;
@@ -65,7 +71,10 @@
   width: 220px;
   background-color: #444444;
   color: #f3f6f4;
-  width: 100%;
+
+  @media (max-width: $screen-sm-min) {
+    width: 100%;
+  }
 
   &:hover {
     cursor: pointer;

@@ -1,4 +1,5 @@
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,10 +10,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
   imports: [
     ButtonModule,
     CommonModule,
@@ -20,14 +17,22 @@ import { LayoutComponent } from '../../shared/layout/layout.component';
     InputTextModule,
     LayoutComponent,
   ],
+  selector: 'app-login',
+  standalone: true,
+  styleUrl: './login.component.scss',
+  templateUrl: './login.component.html',
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   login() {
     console.log(this.username, this.password);
+  }
+
+  redirectToRegister() {
+    this.router.navigate(['/register']);
   }
 }

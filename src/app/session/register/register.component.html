@@ -1,1 +1,45 @@
-<p>register works!</p>
+<shared-layout>
+  <div class="register-container">
+    <h3 class="register-title">Welcome!</h3>
+    <div class="login-descriptiton">Tell us, who are you?</div>
+    <hr />
+
+    <div>
+      <div class="form-text">Name</div>
+      <input
+        type="text"
+        [(ngModel)]="name"
+        class="form-input"
+        placeholder="Your name here"
+      />
+
+      <div class="form-text">Email</div>
+      <input
+        type="text"
+        [(ngModel)]="username"
+        class="form-input"
+        placeholder="Your username here"
+      />
+
+      <div class="form-text">Password</div>
+      <input
+        type="text"
+        [(ngModel)]="password"
+        class="form-input"
+        placeholder="Your password here"
+      />
+
+      <div>
+        <button class="register-button" (click)="register()">Register</button>
+      </div>
+    </div>
+    <hr />
+
+    <div class="login-section">
+      <div class="login-text">
+        Already have an account?
+        <a (click)="redirectToLogin()" class="login-link"> Log in here </a>
+      </div>
+    </div>
+  </div>
+</shared-layout>
