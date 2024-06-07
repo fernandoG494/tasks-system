@@ -5,13 +5,21 @@ import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
 import { AppState } from '../../store/reducers';
+import { InputTextModule } from 'primeng/inputtext';
+import { LayoutComponent } from '../../shared/layout/layout.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ButtonModule, CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  imports: [
+    ButtonModule,
+    CommonModule,
+    FormsModule,
+    InputTextModule,
+    LayoutComponent,
+  ],
 })
 export class LoginComponent {
   username: string = '';

@@ -1,5 +1,73 @@
-@import "../../styles//breakpoints";
+@import "../../styles/breakpoints";
 
 .login-container {
-  background-color: red;
+  padding: 0 10px 10px 10px;
+}
+
+.login-title {
+  padding-top: 10px;
+}
+
+.form-input {
+  border-radius: 5px;
+  border: none;
+  bottom: 14px;
+  height: 34px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 0 10px;
+  right: 9px;
+  width: 220px;
+  border: 1px solid #647a81;
+
+  @media (max-width: $screen-sm-min) {
+    width: 100%;
+  }
+
+  &:focus {
+    border: 1px solid #32c3f2;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+}
+
+.form-text {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.forgot-text {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.register-text {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.register-section {
+  margin-bottom: 10px;
+}
+
+.login-button {
+  border-radius: 5px;
+  border: none;
+  bottom: 14px;
+  height: 34px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 0 10px;
+  right: 9px;
+  width: 220px;
+  background-color: #444444;
+  color: #f3f6f4;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

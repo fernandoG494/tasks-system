@@ -1,1 +1,42 @@
-<div class="login-container">AAA</div>
+<shared-layout>
+  <div class="login-container">
+    <h3 class="login-title">Welcome back!</h3>
+    <div class="login-descriptiton">
+      Welcome back, please enter your credentials
+    </div>
+    <hr />
+
+    <div>
+      <div class="form-text">Email</div>
+      <input
+        type="text"
+        [(ngModel)]="username"
+        class="form-input"
+        placeholder="Your username here"
+      />
+
+      <div class="form-text">Password</div>
+      <input
+        type="text"
+        [(ngModel)]="password"
+        class="form-input"
+        placeholder="Your password here"
+      />
+
+      <div>
+        <button class="login-button" (click)="login()">Login</button>
+      </div>
+
+      <div class="forgot-text">
+        Forgot your password? <a href="#">Click here</a>
+      </div>
+    </div>
+    <hr />
+
+    <div class="register-section">
+      <div class="register-text">
+        Dont have an account? <a href="#">Register here</a>
+      </div>
+    </div>
+  </div>
+</shared-layout>

@@ -1,0 +1,14 @@
+@import "../../styles/breakpoints";
+
+.layout-container {
+  border-radius: 10px;
+  margin: 10% auto;
+  max-width: 30rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  @media (max-width: $screen-sm-min) {
+    max-width: 100%;
+    box-shadow: none;
+  }
+}
