@@ -11,13 +11,9 @@ import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { LayoutComponent } from '../../shared/layout/layout.component';
 import { AuthService } from '../../services/auth.services';
-
-interface RegisterStatus {
-  status: string;
-  message: string;
-}
+import { RegisterStatus } from '../../interfaces/session.interfaces';
+import { LayoutComponent } from '../../shared/layout/layout.component';
 
 @Component({
   imports: [

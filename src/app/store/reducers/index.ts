@@ -1,6 +1,7 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { AuthState, authReducer } from './auth.reducer';
+import { authReducer } from './auth.reducer';
 import { environment } from '../../environments/environment';
+import { AuthState } from '../../interfaces/store.interfaces';
 
 export interface AppState {
   session: AuthState;

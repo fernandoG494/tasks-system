@@ -15,12 +15,8 @@ import { AppState } from '../../store/reducers';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../../services/auth.services';
 import * as AuthActions from '../../store/actions/auth.actions';
+import { LoginStatus } from '../../interfaces/session.interfaces';
 import { LayoutComponent } from '../../shared/layout/layout.component';
-
-interface LoginStatus {
-  status: string;
-  message: string;
-}
 
 @Component({
   imports: [

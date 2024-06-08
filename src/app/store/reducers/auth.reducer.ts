@@ -8,10 +8,7 @@ import {
   registerFailure,
   registerSuccess,
 } from '../actions/auth.actions';
-
-export interface AuthState {
-  user: any;
-}
+import { AuthState } from '../../interfaces/store.interfaces';
 
 export const initialState: AuthState = {
   user: null,
