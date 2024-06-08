@@ -7,7 +7,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private apiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 
@@ -15,24 +15,26 @@ export class AuthService {
     return this.http
       .post<{ user: any }>(`${this.apiUrl}/login`, { username, password })
       .pipe(
-        map((response) => response.user),
+        map((response) => {
+          return response;
+        }),
         catchError(this.handleError)
       );
   }
 
-  register(username: string, password: string): Observable<any> {
-    return this.http.post<any>('api/register', { username, password });
+  register(name: string, password: string, email: string): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/user`, { name, password, email })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!';
-    if (error.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // Server-side errors
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(errorMessage);
+  private handleError({ error }: HttpErrorResponse) {
+    let errorMessage = error.message;
+    return of({ message: errorMessage, status: 'error' });
   }
 }

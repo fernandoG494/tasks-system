@@ -29,10 +29,12 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(register),
       switchMap((action) =>
-        this.authService.register(action.username, action.password).pipe(
-          map(() => registerSuccess()),
-          catchError((error) => of(registerFailure({ error })))
-        )
+        this.authService
+          .register(action.username, action.password, action.email)
+          .pipe(
+            map(() => registerSuccess()),
+            catchError((error) => of(registerFailure({ error })))
+          )
       )
     )
   );
