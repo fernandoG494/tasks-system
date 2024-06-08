@@ -8,8 +8,13 @@ import {
   register,
   registerFailure,
   registerSuccess,
+  verifyToken,
+  verifyTokenFailure,
+  verifyTokenSuccess,
 } from '../actions/auth.actions';
 import { AuthService } from '../../services/auth.services';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
 
 @Injectable()
 export class AuthEffects {
@@ -39,5 +44,21 @@ export class AuthEffects {
     )
   );
 
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  verifyToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(verifyToken),
+      mergeMap((action) =>
+        this.authService.verifyToken(action.token).pipe(
+          map((response) => verifyTokenSuccess({ user: response.user })),
+          catchError(() => of(verifyTokenFailure()))
+        )
+      )
+    )
+  );
+
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) {}
 }

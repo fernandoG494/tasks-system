@@ -7,11 +7,14 @@ import {
   register,
   registerFailure,
   registerSuccess,
+  verifyTokenFailure,
+  verifyTokenSuccess,
 } from '../actions/auth.actions';
 import { AuthState } from '../../interfaces/store.interfaces';
 
 export const initialState: AuthState = {
   user: null,
+  error: null,
 };
 
 export const authReducer = createReducer(
@@ -39,5 +42,15 @@ export const authReducer = createReducer(
   })),
   on(registerFailure, (state) => ({
     ...state,
+  })),
+  on(verifyTokenSuccess, (state, { user }) => ({
+    ...state,
+    user,
+    token: user.token,
+  })),
+  on(verifyTokenFailure, (state) => ({
+    ...state,
+    user: null,
+    token: null,
   }))
 );
