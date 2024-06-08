@@ -3,11 +3,11 @@ import { AuthState, authReducer } from './auth.reducer';
 import { environment } from '../../environments/environment';
 
 export interface AppState {
-  auth: AuthState;
+  session: AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  auth: authReducer,
+  session: authReducer,
 };
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production

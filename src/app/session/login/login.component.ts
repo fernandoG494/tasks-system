@@ -5,13 +5,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
+import { AppState } from '../../store/reducers';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../../services/auth.services';
+import * as AuthActions from '../../store/actions/auth.actions';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
 interface LoginStatus {
@@ -42,9 +45,10 @@ export class LoginComponent {
   };
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private store: Store<AppState>
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -69,6 +73,8 @@ export class LoginComponent {
         };
 
         if (response.user.email === this.loginForm.value.email) {
+          this.store.dispatch(AuthActions.login({ email, password }));
+
           this.loginStatus = {
             status: 'success',
             message: `Welcome back, ${response.user.name}!`,

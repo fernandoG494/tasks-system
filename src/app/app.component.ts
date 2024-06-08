@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .select((state) => state.auth.user)
+      .select((state) => state.session.user)
       .subscribe((user) => {
         if (user) {
           this.router.navigate(['/dashboard']);

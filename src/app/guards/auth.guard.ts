@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.store
-      .select((state) => state.auth.user)
+      .select((state) => state.session.user)
       .pipe(
         take(1),
         map((user) => {
