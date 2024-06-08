@@ -71,6 +71,7 @@
   width: 220px;
   background-color: #444444;
   color: #f3f6f4;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: $screen-sm-min) {
     width: 100%;
@@ -79,4 +80,34 @@
   &:hover {
     cursor: pointer;
   }
+
+  &:disabled {
+    background-color: #eeeeee;
+    color: #0d0d0d;
+    cursor: not-allowed;
+  }
+}
+
+.error-text {
+  color: red;
+  font-size: smaller;
+  margin-bottom: 5px;
+}
+
+.login-status {
+  width: 100%;
+  padding: 10px;
+
+  border-radius: 10px;
+  font-size: smaller;
+}
+
+.success {
+  background-color: #cdfcce;
+  border: 2px solid #19a337;
+}
+
+.error {
+  background-color: #fccdcd;
+  border: 2px solid #a31919;
 }

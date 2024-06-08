@@ -11,9 +11,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     return this.http
-      .post<{ user: any }>(`${this.apiUrl}/login`, { username, password })
+      .post<{ user: any }>(`${this.apiUrl}/user/login`, { email, password })
       .pipe(
         map((response) => {
           return response;

@@ -1,13 +1,23 @@
-import { Store } from '@ngrx/store';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
-import { AppState } from '../../store/reducers';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthService } from '../../services/auth.services';
 import { LayoutComponent } from '../../shared/layout/layout.component';
+
+interface LoginStatus {
+  status: string;
+  message: string;
+}
 
 @Component({
   imports: [
@@ -16,6 +26,7 @@ import { LayoutComponent } from '../../shared/layout/layout.component';
     FormsModule,
     InputTextModule,
     LayoutComponent,
+    ReactiveFormsModule,
   ],
   selector: 'app-login',
   standalone: true,
@@ -23,16 +34,103 @@ import { LayoutComponent } from '../../shared/layout/layout.component';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  public loginForm: FormGroup;
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  public loginStatus: LoginStatus = {
+    status: '',
+    message: '',
+  };
 
-  login() {
-    console.log(this.username, this.password);
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
+    });
+  }
+
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.getFormErrors();
+      return;
+    }
+
+    const { email, password } = this.loginForm.value;
+
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
+        this.loginStatus = {
+          status: response.status,
+          message: response.message,
+        };
+
+        if (response.user.email === this.loginForm.value.email) {
+          this.loginStatus = {
+            status: 'success',
+            message: `Welcome back, ${response.user.name}!`,
+          };
+        } else {
+          this.loginStatus = {
+            status: 'error',
+            message: `Sorry, we can't find you :(`,
+          };
+        }
+      },
+      error: (error) => {
+        console.error('Error en el registro', error);
+      },
+    });
   }
 
   redirectToRegister() {
     this.router.navigate(['/register']);
+  }
+
+  isValidField(field: string): boolean | null {
+    return (
+      this.loginForm.controls[field].errors &&
+      this.loginForm.controls[field].touched
+    );
+  }
+
+  getFieldError(field: string): string | null {
+    if (!this.loginForm.controls[field]) return null;
+    const errors = this.loginForm.controls[field].errors || {};
+
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return 'Este campo es requerido';
+        case 'minlength':
+          return `Mínimo ${errors['minlength'].requiredLength} caracteres.`;
+        case 'email':
+          return 'Formato de email inválido';
+      }
+    }
+    return null;
+  }
+
+  getFormErrors() {
+    const formErrors: { [key: string]: string } = {};
+
+    Object.keys(this.loginForm.controls).forEach((key) => {
+      const controlErrors = this.loginForm.get(key)?.errors;
+      if (controlErrors) {
+        formErrors[key] = this.getFieldError(key) || '';
+      }
+    });
+    return formErrors;
+  }
+
+  buttonDisabled() {
+    return this.loginForm.invalid;
+  }
+
+  showLoginStatus() {
+    return this.loginStatus.status != '';
   }
 }
